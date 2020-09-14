@@ -18,7 +18,6 @@ const masterchefFunctionSigs = masterchefAbi
   .filter((x) => x !== null);
 
 const HOUR = 60 * 60;
-const DAY = 24 * 60;
 
 function Encode() {
   const [functionSig, setFunctionSig] = useState(masterchefFunctionSigs[0]);
