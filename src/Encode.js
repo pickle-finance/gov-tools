@@ -131,11 +131,25 @@ function Encode() {
                               return;
                             }
 
+                            // Converts bool from string to bool etc
+                            const paramsFixed = params
+                              .split(",")
+                              .map((x) => x.split(" ").join(""))
+                              .map((x, i) => {
+                                if (functionParams[i] === "bool") {
+                                  if (x === "true") {
+                                    return true;
+                                  } else if (x === "false") {
+                                    return false;
+                                  }
+                                  return null;
+                                }
+                                return x;
+                              });
+
                             const encodedData = ethers.utils.defaultAbiCoder.encode(
                               functionParams,
-                              params
-                                .split(",")
-                                .map((x) => x.split(" ").join(""))
+                              paramsFixed
                             );
 
                             setData(encodedData);
