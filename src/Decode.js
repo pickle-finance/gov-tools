@@ -7,10 +7,16 @@ import abiDecoder from "abi-decoder";
 import masterchefAbi from "./abi/masterchef.json";
 import timelockAbi from "./abi/timelock.json";
 import gnosisSafeAbi from "./abi/gnosis.json";
+import pickleJarAbi from "./abi/pickle-jar.json";
+import controllerAbi from "./abi/controller.json";
+import strategyCurveSCRVv1 from "./abi/strategy-curve-scrv-v1.json";
 
 abiDecoder.addABI(timelockAbi);
 abiDecoder.addABI(masterchefAbi);
 abiDecoder.addABI(gnosisSafeAbi);
+abiDecoder.addABI(pickleJarAbi);
+abiDecoder.addABI(controllerAbi);
+abiDecoder.addABI(strategyCurveSCRVv1);
 
 // https://github.com/abstracted-finance/pickle-txs-wtf/blob/master/components/main.tsx
 const specialFunctionNames = [
