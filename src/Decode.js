@@ -28,6 +28,7 @@ const specialFunctionNames = [
 function Decode() {
   const [txData, setTxData] = useState("");
   const [decodedTx, setDecodedTx] = useState({});
+  const [epoch, setEpoch] = useState("");
 
   const invalidTxData = decodedTx instanceof Error;
 
@@ -119,6 +120,28 @@ function Decode() {
               </tbody>
             </Table>
           )}
+        </Card.Body>
+      </Card>
+
+      <Spacer y={15} />
+
+      <Card>
+        <Card.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Epoch to Hours</Form.Label>
+              <Form.Control
+                type="text"
+                value={epoch}
+                onChange={(e) => setEpoch(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              {epoch.length > 0 &&
+                (parseInt(epoch) - new Date().getTime() / 1000) / (60 * 60)}
+            </Form.Group>
+          </Form>
         </Card.Body>
       </Card>
     </>
