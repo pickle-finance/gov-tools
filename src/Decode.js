@@ -129,7 +129,7 @@ function Decode() {
         <Card.Body>
           <Form>
             <Form.Group>
-              <Form.Label>Epoch to Hours</Form.Label>
+              <Form.Label>Hours from Epoch</Form.Label>
               <Form.Control
                 type="text"
                 value={epoch}
