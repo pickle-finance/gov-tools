@@ -74,7 +74,9 @@ function Decode() {
                     decodedFunction.params[3].value =
                       "[" +
                       decodedData.map((x) => x.toString()).join(", ") +
-                      "]";
+                      "]" +
+                      "\n" +
+                      data;
                   }
 
                   setDecodedTx(decodedFunction);

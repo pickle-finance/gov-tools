@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Spacer } from "./Spacer";
 import Encode from "./Encode";
 import Decode from "./Decode";
+import Hash from './Hash'
 
 function App() {
   const [key, setKey] = useState("encode");
@@ -28,6 +29,9 @@ function App() {
             </Tab>
             <Tab eventKey="decode" title="Decode">
               <Decode />
+            </Tab>
+            <Tab eventKey="hash" title="Hash">
+              <Hash />
             </Tab>
           </Tabs>
         </Col>
