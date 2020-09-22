@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Spacer } from "./Spacer";
 import { ethers } from "ethers";
 
@@ -7,26 +7,64 @@ import { Form, Button, Card } from "react-bootstrap";
 import { ADDRESSES } from "./constants";
 
 import masterchefAbi from "./abi/masterchef.json";
+import controllerAbi from "./abi/controller-v2.json";
+import pickleJarAbi from "./abi/pickle-jar.json";
+import strategySCRVv3Abi from "./abi/strategy-scrv-v3.json";
+import strategyUniEthV3Abi from "./abi/strategy-uni-eth-lp-v3.json";
 
-const masterchefFunctionSigs = masterchefAbi
-  .map((x) => {
-    if (x.type !== "function") {
-      return null;
-    }
-    return `${x.name}(${x.inputs.map((y) => y.type).join(",")})`;
-  })
-  .filter((x) => x !== null);
+const getFunctionSigs = (abi) => {
+  return abi
+    .map((x) => {
+      if (x.type !== "function") {
+        return null;
+      }
+      if (x.stateMutability === "view") {
+        return null;
+      }
+      if (x.stateMutability === "pure") {
+        return null;
+      }
+      return `${x.name}(${x.inputs.map((y) => y.type).join(",")})`;
+    })
+    .filter((x) => x !== null);
+};
+
+const masterchefFunctionSigs = getFunctionSigs(masterchefAbi);
+const pickleJarFunctionSigs = getFunctionSigs(pickleJarAbi);
+const strategySCRVv3FunctionSigs = getFunctionSigs(strategySCRVv3Abi);
+const strategyUniEthV3FunctionSigs = getFunctionSigs(strategyUniEthV3Abi);
+const controllerFunctionSigs =  getFunctionSigs(controllerAbi);
 
 const HOUR = 60 * 60;
 
-function Encode() {
-  const [functionSig, setFunctionSig] = useState(masterchefFunctionSigs[0]);
+function Encode({ functionSigs, recipient, target, timelockDuration }) {
+  const [functionSig, setFunctionSig] = useState(functionSigs[0]);
   const [params, setParams] = useState("");
   const [data, setData] = useState("");
+  const [hoursFromNow, setHoursFromNow] = useState(timelockDuration + 1);
   const [eta, setEta] = useState(
-    parseInt((new Date().getTime() / 1000).toString()) + 49 * HOUR
+    parseInt((new Date().getTime() / 1000).toString()) +
+      parseInt(hoursFromNow) * HOUR
   );
-  const [hoursFromNow, setHoursFromNow] = useState(49);
+
+  const updateEta = (hfn) => {
+    try {
+      const newEta =
+        parseInt((new Date().getTime() / 1000).toString()) +
+        parseInt(hfn) * HOUR;
+
+      setEta(newEta.toString());
+    } catch (e) {
+      setEta(e.toString());
+    }
+  };
+
+  useEffect(() => {
+    if (hoursFromNow !== timelockDuration + 1) {
+      setHoursFromNow(timelockDuration + 1);
+      updateEta(timelockDuration + 1);
+    }
+  }, [hoursFromNow, timelockDuration]);
 
   return (
     <>
@@ -39,7 +77,7 @@ function Encode() {
           <Form>
             <Form.Group>
               <Form.Label>Recipient</Form.Label>
-              <Form.Control type="text" value={ADDRESSES.Timelock} disabled />
+              <Form.Control type="text" value={recipient} disabled />
             </Form.Group>
             <Form.Group>
               <Form.Label>Function Sig</Form.Label>
@@ -54,11 +92,7 @@ function Encode() {
               <Card.Body>
                 <Form.Group>
                   <Form.Label>Target</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={ADDRESSES.Masterchef}
-                    disabled
-                  />
+                  <Form.Control type="text" value={target} disabled />
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Value</Form.Label>
@@ -82,7 +116,7 @@ function Encode() {
                             setData("");
                           }}
                         >
-                          {masterchefFunctionSigs.map((x) => (
+                          {functionSigs.map((x) => (
                             <option key={x}>{x}</option>
                           ))}
                         </Form.Control>
@@ -186,18 +220,7 @@ function Encode() {
                         block
                         onClick={(e) => {
                           e.preventDefault();
-
-                          try {
-                            const newEta =
-                              parseInt(
-                                (new Date().getTime() / 1000).toString()
-                              ) +
-                              parseInt(hoursFromNow) * HOUR;
-
-                            setEta(newEta.toString());
-                          } catch (e) {
-                            setEta(e.toString());
-                          }
+                          updateEta(hoursFromNow);
                         }}
                         variant="primary"
                         type="submit"
@@ -216,4 +239,103 @@ function Encode() {
   );
 }
 
-export default Encode;
+function EncodeSelector() {
+  const contracts = {
+    "Masterchef (48 hr)": {
+      recipient: ADDRESSES.Timelock_48,
+      target: ADDRESSES.Masterchef,
+      timelockDuration: 48,
+      functionSigs: masterchefFunctionSigs,
+    },
+    "Masterchef (24 hr)": {
+      recipient: ADDRESSES.Timelock_24,
+      target: ADDRESSES.Masterchef,
+      timelockDuration: 24,
+      functionSigs: masterchefFunctionSigs,
+    },
+    "Controller v2 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.ControllerV2,
+      timelockDuration: 12,
+      functionSigs: controllerFunctionSigs,
+    },
+    "psCRV (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psCRV,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "psUNIv2-ETH-DAI (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psUNIv2_ETH_DAI,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "psUNIv2-ETH-USDC (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psUNIv2_ETH_USDC,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "psUNIv2-ETH-USDT (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psUNIv2_ETH_USDT,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "StrategyCurveSCRVv3 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyCurveSCRVv3,
+      timelockDuration: 12,
+      functionSigs: strategySCRVv3FunctionSigs,
+    },
+    "StrategyUniEthDaiLpV3 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyUniEthDaiLpV3,
+      timelockDuration: 12,
+      functionSigs: strategyUniEthV3FunctionSigs,
+    },
+    "StrategyUniEthUsdcLpV3 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyUniEthUsdcLpV3,
+      timelockDuration: 12,
+      functionSigs: strategyUniEthV3FunctionSigs,
+    },
+    "StrategyUniEthUsdtLpV3 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyUniEthUsdtLpV3,
+      timelockDuration: 12,
+      functionSigs: strategyUniEthV3FunctionSigs,
+    },
+  };
+
+  const [selectedContract, setSelectedContract] = useState(
+    contracts["Masterchef (48 hr)"]
+  );
+
+  return (
+    <>
+      <Spacer y={20} />
+
+      <Form.Group>
+        <Form.Label>
+          <h3>Contract</h3>
+        </Form.Label>
+        <Form.Control
+          as="select"
+          onChange={(e) => {
+            setSelectedContract(contracts[e.target.value]);
+          }}
+        >
+          {Object.keys(contracts).map((x) => (
+            <option key={x}>{x}</option>
+          ))}
+        </Form.Control>
+      </Form.Group>
+
+      <Encode {...selectedContract} />
+    </>
+  );
+}
+
+export default EncodeSelector;

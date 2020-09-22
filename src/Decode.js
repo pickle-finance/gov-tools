@@ -8,15 +8,17 @@ import masterchefAbi from "./abi/masterchef.json";
 import timelockAbi from "./abi/timelock.json";
 import gnosisSafeAbi from "./abi/gnosis.json";
 import pickleJarAbi from "./abi/pickle-jar.json";
-import controllerAbi from "./abi/controller.json";
-import strategyCurveSCRVv1 from "./abi/strategy-curve-scrv-v1.json";
+import controllerAbi from "./abi/controller-v2.json";
+import strategyCurveSCRVv3 from "./abi/strategy-scrv-v3.json";
+import strategyUniEthV3 from "./abi/strategy-uni-eth-lp-v3.json";
 
 abiDecoder.addABI(timelockAbi);
 abiDecoder.addABI(masterchefAbi);
 abiDecoder.addABI(gnosisSafeAbi);
 abiDecoder.addABI(pickleJarAbi);
 abiDecoder.addABI(controllerAbi);
-abiDecoder.addABI(strategyCurveSCRVv1);
+abiDecoder.addABI(strategyCurveSCRVv3);
+abiDecoder.addABI(strategyUniEthV3);
 
 // https://github.com/abstracted-finance/pickle-txs-wtf/blob/master/components/main.tsx
 const specialFunctionNames = [
@@ -131,7 +133,7 @@ function Decode() {
         <Card.Body>
           <Form>
             <Form.Group>
-              <Form.Label>Hours from Epoch</Form.Label>
+              <Form.Label>Hours from ETA</Form.Label>
               <Form.Control
                 type="text"
                 value={epoch}
