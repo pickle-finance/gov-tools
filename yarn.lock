@@ -10975,6 +10975,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-local-storage-state@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/use-local-storage-state/-/use-local-storage-state-5.0.0.tgz#609bb1413dd7e5bba9f1ad7cfb53dc148eb00c6d"
+  integrity sha512-o1zBlKZQr/JQkdFRa1EzJzRim9a5cS0C9L2fH7iGO+lYJ4qfhMWDQb5UEa8D4SfYzJdZ5N3asihh3plo8moEzA==
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"

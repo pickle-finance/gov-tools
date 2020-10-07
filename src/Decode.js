@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import { Card, Button, Form, Table } from "react-bootstrap";
 import { Spacer } from "./Spacer";
 import abiDecoder from "abi-decoder";
+
+import useLocalStorageState from "use-local-storage-state";
 
 import masterchefAbi from "./abi/masterchef.json";
 import timelockAbi from "./abi/timelock.json";
@@ -35,11 +37,53 @@ function Decode() {
   const [txData, setTxData] = useState("");
   const [decodedTx, setDecodedTx] = useState({});
   const [epoch, setEpoch] = useState("");
+  const [addCustomAbiText, setAddCustomAbiText] = useState("");
+  const [customAbi, setCustomAbi] = useState("");
+  const [customAbis, setCustomAbis] = useLocalStorageState("custom-abis", []);
 
   const invalidTxData = decodedTx instanceof Error;
 
+  useEffect(() => {
+    customAbis.forEach((abi) => {
+      abiDecoder.addABI(abi);
+    });
+  }, [customAbis]);
+
   return (
     <>
+      <Spacer y={15} />
+      <Card>
+        <Card.Body>
+          <Form>
+            <Form.Group>
+              <Form.Label>Add custom ABI (for decoding)</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows="3"
+                value={customAbi}
+                onChange={(e) => setCustomAbi(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              block
+              onClick={(e) => {
+                try {
+                  const abiJson = JSON.parse(customAbi);
+                  setCustomAbis([...customAbis, abiJson]);
+                  setAddCustomAbiText('Successfully added!')
+                } catch (e) {
+                  setAddCustomAbiText(e.toString());
+                }
+              }}
+            >
+              Add
+            </Button>
+
+            <Spacer y={5} />
+            {addCustomAbiText}
+          </Form>
+        </Card.Body>
+      </Card>
       <Spacer y={15} />
       <Card>
         <Card.Body>
