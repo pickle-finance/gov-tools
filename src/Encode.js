@@ -33,7 +33,7 @@ const masterchefFunctionSigs = getFunctionSigs(masterchefAbi);
 const pickleJarFunctionSigs = getFunctionSigs(pickleJarAbi);
 const strategySCRVv3FunctionSigs = getFunctionSigs(strategySCRVv3Abi);
 const strategyUniEthV3FunctionSigs = getFunctionSigs(strategyUniEthV3Abi);
-const controllerFunctionSigs =  getFunctionSigs(controllerAbi);
+const controllerFunctionSigs = getFunctionSigs(controllerAbi);
 
 const HOUR = 60 * 60;
 
@@ -253,33 +253,45 @@ function EncodeSelector() {
       timelockDuration: 24,
       functionSigs: masterchefFunctionSigs,
     },
-    "Controller v2 (12 hr)": {
+    "Controller v3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
-      target: ADDRESSES.ControllerV2,
+      target: ADDRESSES.ControllerV3,
       timelockDuration: 12,
       functionSigs: controllerFunctionSigs,
     },
-    "psCRV (12 hr)": {
+    "psCRV v2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
-      target: ADDRESSES.psCRV,
+      target: ADDRESSES.psCRV_v2,
       timelockDuration: 12,
       functionSigs: pickleJarFunctionSigs,
     },
-    "psUNIv2-ETH-DAI (12 hr)": {
+    "p3CRV (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
-      target: ADDRESSES.psUNIv2_ETH_DAI,
+      target: ADDRESSES.prenCRV,
       timelockDuration: 12,
       functionSigs: pickleJarFunctionSigs,
     },
-    "psUNIv2-ETH-USDC (12 hr)": {
+    "prenCRV (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
-      target: ADDRESSES.psUNIv2_ETH_USDC,
+      target: ADDRESSES.p3CRV,
       timelockDuration: 12,
       functionSigs: pickleJarFunctionSigs,
     },
-    "psUNIv2-ETH-USDT (12 hr)": {
+    "psUNIv2 ETH DAI v2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
-      target: ADDRESSES.psUNIv2_ETH_USDT,
+      target: ADDRESSES.psUNIv2_ETH_DAI_v2,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "psUNIv2 ETH USDC v2 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psUNIv2_ETH_USDC_v2,
+      timelockDuration: 12,
+      functionSigs: pickleJarFunctionSigs,
+    },
+    "psUNIv2 ETH USDT v2 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.psUNIv2_ETH_USDT_v2,
       timelockDuration: 12,
       functionSigs: pickleJarFunctionSigs,
     },
@@ -289,23 +301,41 @@ function EncodeSelector() {
       timelockDuration: 12,
       functionSigs: strategySCRVv3FunctionSigs,
     },
+    "StrategyCurve3CRVv1 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyCurve3CRVv1,
+      timelockDuration: 12,
+      functionSigs: strategySCRVv3FunctionSigs,
+    },
+    "StrategyCurveRenCRVv1 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyCurveRenCRVv1,
+      timelockDuration: 12,
+      functionSigs: strategySCRVv3FunctionSigs,
+    },
     "StrategyUniEthDaiLpV3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthDaiLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyUniEthV3Abi,
     },
     "StrategyUniEthUsdcLpV3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdcLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyUniEthV3Abi,
     },
     "StrategyUniEthUsdtLpV3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdtLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyUniEthV3Abi,
+    },
+    "StrategyUniEthWBtcLpV1 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.StrategyUniEthWBtcLpV1,
+      timelockDuration: 12,
+      functionSigs: strategyUniEthV3Abi,
     },
   };
 
