@@ -317,25 +317,25 @@ function EncodeSelector() {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthDaiLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3Abi,
+      functionSigs: strategyUniEthV3FunctionSigs,
     },
     "StrategyUniEthUsdcLpV3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdcLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3Abi,
+      functionSigs: strategyUniEthV3FunctionSigs,
     },
     "StrategyUniEthUsdtLpV3 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdtLpV3,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3Abi,
+      functionSigs: strategyUniEthV3FunctionSigs,
     },
     "StrategyUniEthWBtcLpV1 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthWBtcLpV1,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3Abi,
+      functionSigs: strategyUniEthV3FunctionSigs,
     },
   };
 
