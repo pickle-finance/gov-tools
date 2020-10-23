@@ -8,6 +8,7 @@ import { ADDRESSES } from "./constants";
 
 import masterchefAbi from "./abi/masterchef.json";
 import controllerAbi from "./abi/controller-v2.json";
+import controllerV4Abi from "./abi/controller-v4.json";
 import pickleJarAbi from "./abi/pickle-jar.json";
 import strategySCRVv3Abi from "./abi/strategy-scrv-v3.json";
 import strategyUniEthV3Abi from "./abi/strategy-uni-eth-lp-v3.json";
@@ -34,6 +35,7 @@ const pickleJarFunctionSigs = getFunctionSigs(pickleJarAbi);
 const strategySCRVv3FunctionSigs = getFunctionSigs(strategySCRVv3Abi);
 const strategyUniEthV3FunctionSigs = getFunctionSigs(strategyUniEthV3Abi);
 const controllerFunctionSigs = getFunctionSigs(controllerAbi);
+const controllerV4FunctionSigs = getFunctionSigs(controllerV4Abi);
 
 const HOUR = 60 * 60;
 
@@ -258,6 +260,12 @@ function EncodeSelector() {
       target: ADDRESSES.ControllerV3,
       timelockDuration: 12,
       functionSigs: controllerFunctionSigs,
+    },
+    "Controller v4 (12 hr)": {
+      recipient: ADDRESSES.Timelock_12,
+      target: ADDRESSES.ControllerV4,
+      timelockDuration: 12,
+      functionSigs: controllerV4FunctionSigs,
     },
     "psCRV v2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,

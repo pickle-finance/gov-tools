@@ -15,6 +15,7 @@ import strategyCurveSCRVv3 from "./abi/strategy-scrv-v3.json";
 import strategyUniEthV3 from "./abi/strategy-uni-eth-lp-v3.json";
 import strategyPostPip8v3 from "./abi/strategy-curve-scrv-v3.json";
 import controllerv3Abi from "./abi/controller-v3.json";
+import controllerv4Abi from "./abi/controller-v4.json";
 
 abiDecoder.addABI(timelockAbi);
 abiDecoder.addABI(masterchefAbi);
@@ -25,6 +26,7 @@ abiDecoder.addABI(strategyCurveSCRVv3);
 abiDecoder.addABI(strategyUniEthV3);
 abiDecoder.addABI(strategyPostPip8v3);
 abiDecoder.addABI(controllerv3Abi);
+abiDecoder.addABI(controllerv4Abi);
 
 // https://github.com/abstracted-finance/pickle-txs-wtf/blob/master/components/main.tsx
 const specialFunctionNames = [
