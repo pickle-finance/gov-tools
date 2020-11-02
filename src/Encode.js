@@ -9,9 +9,7 @@ import { ADDRESSES } from "./constants";
 import masterchefAbi from "./abi/masterchef.json";
 import controllerV4Abi from "./abi/controller-v4.json";
 import pickleJarAbi from "./abi/pickle-jar.json";
-import strategySCRVv3Abi from "./abi/strategy-scrv-v3.json";
-import strategyUniEthV3Abi from "./abi/strategy-uni-eth-lp-v3.json";
-import strategyCmpV2Abi from './abi/strategy-cmpv2.json';
+import strategyAbi from "./abi/strategy.json";
 
 const getFunctionSigs = (abi) => {
   return abi
@@ -32,10 +30,8 @@ const getFunctionSigs = (abi) => {
 
 const masterchefFunctionSigs = getFunctionSigs(masterchefAbi);
 const pickleJarFunctionSigs = getFunctionSigs(pickleJarAbi);
-const strategySCRVv3FunctionSigs = getFunctionSigs(strategySCRVv3Abi);
-const strategyUniEthV3FunctionSigs = getFunctionSigs(strategyUniEthV3Abi);
+const strategyFunctionSigs = getFunctionSigs(strategyAbi);
 const controllerV4FunctionSigs = getFunctionSigs(controllerV4Abi);
-const strategyCmpV2FunctionSigs = getFunctionSigs(strategyCmpV2Abi);
 
 const HOUR = 60 * 60;
 
@@ -301,49 +297,49 @@ function EncodeSelector() {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyCurveSCRVv3_2,
       timelockDuration: 12,
-      functionSigs: strategySCRVv3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyCurve3CRVv2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyCurve3CRVv2,
       timelockDuration: 12,
-      functionSigs: strategySCRVv3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyCurveRenCRVv2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyCurveRenCRVv2,
       timelockDuration: 12,
-      functionSigs: strategySCRVv3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyUniEthDaiLpV4 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthDaiLpV4,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyUniEthUsdcLpV4 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdcLpV4,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyUniEthUsdtLpV4 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthUsdtLpV4,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyUniEthWBtcLpV2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyUniEthWBtcLpV2,
       timelockDuration: 12,
-      functionSigs: strategyUniEthV3FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
     "StrategyCmpdDaiV2 (12 hr)": {
       recipient: ADDRESSES.Timelock_12,
       target: ADDRESSES.StrategyCmpV2,
       timelockDuration: 12,
-      functionSigs: strategyCmpV2FunctionSigs,
+      functionSigs: strategyFunctionSigs,
     },
   };
 
