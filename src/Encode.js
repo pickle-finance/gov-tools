@@ -58,9 +58,9 @@ function Encode({ functionSigs, recipient, target, timelockDuration }) {
   };
 
   useEffect(() => {
-    if (hoursFromNow !== timelockDuration + 1) {
-      setHoursFromNow(timelockDuration + 1);
-      updateEta(timelockDuration + 1);
+    if (hoursFromNow !== timelockDuration + 2) {
+      setHoursFromNow(timelockDuration + 2);
+      updateEta(timelockDuration + 2);
     }
   }, [hoursFromNow, timelockDuration]);
 
