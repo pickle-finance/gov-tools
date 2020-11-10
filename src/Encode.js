@@ -39,7 +39,7 @@ function Encode({ functionSigs, recipient, target, timelockDuration }) {
   const [functionSig, setFunctionSig] = useState(functionSigs[0]);
   const [params, setParams] = useState("");
   const [data, setData] = useState("");
-  const [hoursFromNow, setHoursFromNow] = useState(timelockDuration + 1);
+  const [hoursFromNow, setHoursFromNow] = useState(timelockDuration + 2);
   const [eta, setEta] = useState(
     parseInt((new Date().getTime() / 1000).toString()) +
       parseInt(hoursFromNow) * HOUR
