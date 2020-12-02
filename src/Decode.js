@@ -6,7 +6,8 @@ import abiDecoder from "abi-decoder";
 
 import useLocalStorageState from "use-local-storage-state";
 
-import bactionsAbi from './abi/bactions.json'
+import bactionsAbi from "./abi/bactions.json";
+import crpAbi from "./abi/crp.json";
 import masterchefAbi from "./abi/masterchef.json";
 import timelockAbi from "./abi/timelock.json";
 import gnosisSafeAbi from "./abi/gnosis.json";
@@ -14,7 +15,8 @@ import pickleJarAbi from "./abi/pickle-jar.json";
 import strategyAbi from "./abi/strategy.json";
 import controllerAbi from "./abi/controller-v4.json";
 
-abiDecoder.addABI(bactionsAbi)
+abiDecoder.addABI(bactionsAbi);
+abiDecoder.addABI(crpAbi);
 abiDecoder.addABI(timelockAbi);
 abiDecoder.addABI(masterchefAbi);
 abiDecoder.addABI(gnosisSafeAbi);
@@ -66,7 +68,7 @@ function Decode() {
                 try {
                   const abiJson = JSON.parse(customAbi);
                   setCustomAbis([...customAbis, abiJson]);
-                  setAddCustomAbiText('Successfully added!')
+                  setAddCustomAbiText("Successfully added!");
                 } catch (e) {
                   setAddCustomAbiText(e.toString());
                 }

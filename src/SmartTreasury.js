@@ -5,40 +5,9 @@ import { Form, Card } from "react-bootstrap";
 
 import { ADDRESSES } from "./constants";
 
-import bactionsAbi from "./abi/bactions.json";
+import crpAbi from "./abi/crp.json";
 
-const getFunctionSigs = (abi) => {
-  return abi
-    .map((x) => {
-      if (x.type !== "function") {
-        return null;
-      }
-      if (x.stateMutability === "view") {
-        return null;
-      }
-      if (x.stateMutability === "pure") {
-        return null;
-      }
-      return `${x.name}(${x.inputs
-        .map((y) => {
-          if (y.name) {
-            return `${y.type} ${y.name}`;
-          }
-
-          return y.type;
-        })
-        .join(",")})`;
-    })
-    .filter((x) => x !== null);
-};
-
-const bactionsFunctionSigs = getFunctionSigs(bactionsAbi);
-
-function Encode({
-  recipient,
-  tokenAddress,
-  poolAddress
-}) {
+function Encode({ tokenAddress, poolAddress }) {
   return (
     <>
       <Spacer y={15} />
@@ -48,21 +17,31 @@ function Encode({
           <h4>Contract Interaction</h4>
 
           <Form>
-            <Form.Group>
-              <Form.Label>Recipient</Form.Label>
-              <Form.Control type="text" value={recipient} disabled />
-            </Form.Group>
+            <Card>
+              <Card.Body>
+                <Form.Group>
+                  <Form.Label>CRP/Pool (Controller) Address</Form.Label>
+                  <Form.Control type="text" value={tokenAddress} disabled />
+                </Form.Group>
 
-            <Form.Group>
-              <Form.Label>CRP/Pool (Controller) Address</Form.Label>
-              <Form.Control type="text" value={tokenAddress} disabled />
-            </Form.Group>
+                <Form.Group>
+                  <Form.Label>ABI</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows="3"
+                    value={JSON.stringify(crpAbi)}
+                    disabled
+                  />
+                </Form.Group>
+              </Card.Body>
+            </Card>
+
+            <br />
 
             <Form.Group>
               <Form.Label>Pool (Swap) Address</Form.Label>
               <Form.Control type="text" value={poolAddress} disabled />
             </Form.Group>
-
           </Form>
         </Card.Body>
       </Card>
@@ -73,11 +52,8 @@ function Encode({
 function EncodeSelector() {
   const contracts = {
     "Pickle Smart Treasury (90 PICKLE / 10 WETH)": {
-      recipient: ADDRESSES.BActions,
       poolAddress: ADDRESSES.SmartTreasury,
-      tokenAddress: ADDRESSES.SmartTreasuryToken,
-      functionSigs: bactionsFunctionSigs,
-      abi: bactionsAbi,
+      tokenAddress: ADDRESSES.SmartTreasuryToken
     },
   };
 
