@@ -39,7 +39,7 @@ function Encode({ functionSigs, recipient, target, timelockDuration }) {
   const [functionSig, setFunctionSig] = useState(functionSigs[0]);
   const [params, setParams] = useState("");
   const [data, setData] = useState("");
-  const [hoursFromNow, setHoursFromNow] = useState(timelockDuration + 1);
+  const [hoursFromNow, setHoursFromNow] = useState(timelockDuration + 2);
   const [eta, setEta] = useState(
     parseInt((new Date().getTime() / 1000).toString()) +
       parseInt(hoursFromNow) * HOUR
@@ -58,9 +58,9 @@ function Encode({ functionSigs, recipient, target, timelockDuration }) {
   };
 
   useEffect(() => {
-    if (hoursFromNow !== timelockDuration + 1) {
-      setHoursFromNow(timelockDuration + 1);
-      updateEta(timelockDuration + 1);
+    if (hoursFromNow !== timelockDuration + 2) {
+      setHoursFromNow(timelockDuration + 2);
+      updateEta(timelockDuration + 2);
     }
   }, [hoursFromNow, timelockDuration]);
 
