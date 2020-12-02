@@ -35,7 +35,7 @@ const getFunctionSigs = (abi) => {
 
 const bactionsFunctionSigs = getFunctionSigs(bactionsAbi);
 
-function Encode({ functionSigs, recipient, target, abi }) {
+function Encode({ functionSigs, recipient, target, abi, poolAddress, tokenAddress }) {
   const [functionSig, setFunctionSig] = useState(functionSigs[0]);
   const [params, setParams] = useState("");
   const [data, setData] = useState("");
@@ -76,6 +76,11 @@ function Encode({ functionSigs, recipient, target, abi }) {
                   <Card>
                     <Card.Body>
                       <Form.Group>
+                        <Form.Group>
+                          <Form.Label>CRP/Pool Address</Form.Label>
+                          <Form.Control type="text" value={tokenAddress} disabled />
+                        </Form.Group>
+
                         <Form.Label>Function Call</Form.Label>
                         <Form.Control
                           as="select"
@@ -183,7 +188,9 @@ function EncodeSelector() {
   const contracts = {
     "PST (0x3c0b...e263)": {
       recipient: ADDRESSES.ZeroXPenguinDSProxy,
-      target: ADDRESSES.SmartTreasury,
+      target: ADDRESSES.BActions,
+      poolAddress: ADDRESSES.SmartTreasury,
+      tokenAddress: ADDRESSES.SmartTreasuryToken,
       functionSigs: bactionsFunctionSigs,
       abi: bactionsAbi,
     },

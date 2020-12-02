@@ -22,5 +22,7 @@ export const ADDRESSES = {
   pDAI: "0x6949Bb624E8e8A90F87cD2058139fcd77D2F3F87",
   StrategyCmpV2: "0xCd892a97951d46615484359355e3Ed88131f829D",
   SmartTreasury: "0x3c0bf8e626d4c6371c3d32593653b69e0a2ae263",
+  SmartTreasuryToken: "0x16C4592E1cB2D9447734bcB6F6e56bd2F81Ba0F6",
+  BActions: "0x2fcc6f96418764439f8dc26af559ed5cddaeefac",
   ZeroXPenguinDSProxy: "0xa2ac7e7107ed94d2f0db5cee9ac35105a3253bd4",
 };
