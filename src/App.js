@@ -5,6 +5,7 @@ import { Spacer } from "./Spacer";
 import Encode from "./Encode";
 import Decode from "./Decode";
 import Hash from './Hash'
+import SmartTreasury from './SmartTreasury'
 
 function App() {
   const [key, setKey] = useState("encode");
@@ -13,7 +14,7 @@ function App() {
     <Container>
       <Row>
         <Col>
-          <h2>Pickle Timelock Transaction Creation</h2>
+          <h2>Pickle Gov Tools</h2>
         </Col>
       </Row>
       <Spacer y={15} />
@@ -32,6 +33,9 @@ function App() {
             </Tab>
             <Tab eventKey="hash" title="Hash">
               <Hash />
+            </Tab>
+            <Tab eventKey="smart-treasury" title="Smart Treasury">
+              <SmartTreasury />
             </Tab>
           </Tabs>
         </Col>
