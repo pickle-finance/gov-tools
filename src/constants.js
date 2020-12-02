@@ -21,8 +21,8 @@ export const ADDRESSES = {
   StrategyUniEthWBtcLpV2: "0xD8dE542D2140eeCc49FfDf056e51aa9261f974d6",
   pDAI: "0x6949Bb624E8e8A90F87cD2058139fcd77D2F3F87",
   StrategyCmpV2: "0xCd892a97951d46615484359355e3Ed88131f829D",
-  SmartTreasury: "0x3c0bf8e626d4c6371c3d32593653b69e0a2ae263",
-  SmartTreasuryToken: "0x16C4592E1cB2D9447734bcB6F6e56bd2F81Ba0F6",
+  SmartTreasury: "0xe5c700572799553f9d65cbe8dfeeb543be584431",
+  SmartTreasuryToken: "0xe2ab9b005abe28cca6a93b46e957fbfbe0f19488", // Controller
   BActions: "0x2fcc6f96418764439f8dc26af559ed5cddaeefac",
-  ZeroXPenguinDSProxy: "0xa2ac7e7107ed94d2f0db5cee9ac35105a3253bd4",
+  GovernanceProxy: "0x23F0CCeeAbEab58c3B547973409F4C1bcC3f2a3D"
 };

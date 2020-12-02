@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Spacer } from "./Spacer";
-import { ethers } from "ethers";
 
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Card } from "react-bootstrap";
 
 import { ADDRESSES } from "./constants";
 
@@ -35,11 +34,11 @@ const getFunctionSigs = (abi) => {
 
 const bactionsFunctionSigs = getFunctionSigs(bactionsAbi);
 
-function Encode({ functionSigs, recipient, target, abi, poolAddress, tokenAddress }) {
-  const [functionSig, setFunctionSig] = useState(functionSigs[0]);
-  const [params, setParams] = useState("");
-  const [data, setData] = useState("");
-
+function Encode({
+  recipient,
+  tokenAddress,
+  poolAddress
+}) {
   return (
     <>
       <Spacer y={15} />
@@ -53,130 +52,17 @@ function Encode({ functionSigs, recipient, target, abi, poolAddress, tokenAddres
               <Form.Label>Recipient</Form.Label>
               <Form.Control type="text" value={recipient} disabled />
             </Form.Group>
+
             <Form.Group>
-              <Form.Label>Function Sig</Form.Label>
-              <Form.Control type="text" value={"execute"} disabled />
+              <Form.Label>CRP/Pool (Controller) Address</Form.Label>
+              <Form.Control type="text" value={tokenAddress} disabled />
             </Form.Group>
 
-            <Card>
-              <Card.Body>
-                <Form.Group>
-                  <Form.Label>Value</Form.Label>
-                  <Form.Control type="text" value={"0"} disabled />
-                </Form.Group>
+            <Form.Group>
+              <Form.Label>Pool (Swap) Address</Form.Label>
+              <Form.Control type="text" value={poolAddress} disabled />
+            </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Target</Form.Label>
-                  <Form.Control type="text" value={target} disabled />
-                </Form.Group>
-
-                <Form.Group>
-                  <Form.Label>Data</Form.Label>
-
-                  <Card>
-                    <Card.Body>
-                      <Form.Group>
-                        <Form.Group>
-                          <Form.Label>CRP/Pool Address</Form.Label>
-                          <Form.Control type="text" value={tokenAddress} disabled />
-                        </Form.Group>
-
-                        <Form.Label>Function Call</Form.Label>
-                        <Form.Control
-                          as="select"
-                          onChange={(e) => {
-                            setFunctionSig(e.target.value);
-                            setData("");
-                          }}
-                        >
-                          {functionSigs.map((x) => (
-                            <option key={x}>{x}</option>
-                          ))}
-                        </Form.Control>
-                      </Form.Group>
-
-                      <Form.Group>
-                        <Form.Label>Function Param</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder={`${Array(
-                            functionSig.split("").filter((x) => x === ",")
-                              .length + 1
-                          )
-                            .fill(0)
-                            .map((x, i) => i)
-                            .join(",")}`}
-                          value={params}
-                          onChange={(e) => setParams(e.target.value)}
-                        />
-                      </Form.Group>
-
-                      <Form.Group>
-                        <Form.Control
-                          as="textarea"
-                          rows="3"
-                          value={data}
-                          disabled
-                        />
-                      </Form.Group>
-
-                      <Button
-                        block
-                        onClick={(e) => {
-                          e.preventDefault();
-
-                          try {
-                            const functionName = functionSig.split("(")[0];
-
-                            const functionParams = functionSig
-                              .split("(")[1]
-                              .split(")")[0]
-                              .split(",")
-                              .filter((x) => x !== "");
-
-                            if (functionParams.length === 0) {
-                              setData("");
-                              return;
-                            }
-
-                            // Converts bool from string to bool etc
-                            const paramsFixed = params
-                              .split(",")
-                              .map((x) => x.split(" ").join(""))
-                              .map((x, i) => {
-                                if (functionParams[i] === "bool") {
-                                  if (x === "true") {
-                                    return true;
-                                  } else if (x === "false") {
-                                    return false;
-                                  }
-                                  return null;
-                                }
-                                return x;
-                              });
-
-                            const IEncoder = new ethers.utils.Interface(abi);
-
-                            const encodedData = IEncoder.encodeFunctionData(
-                              functionName,
-                              paramsFixed
-                            );
-
-                            setData(encodedData);
-                          } catch (e) {
-                            setData(e.toString());
-                          }
-                        }}
-                        variant="primary"
-                        type="submit"
-                      >
-                        Encode
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Form.Group>
-              </Card.Body>
-            </Card>
           </Form>
         </Card.Body>
       </Card>
@@ -186,9 +72,8 @@ function Encode({ functionSigs, recipient, target, abi, poolAddress, tokenAddres
 
 function EncodeSelector() {
   const contracts = {
-    "PST (0x3c0b...e263)": {
-      recipient: ADDRESSES.ZeroXPenguinDSProxy,
-      target: ADDRESSES.BActions,
+    "Pickle Smart Treasury (90 PICKLE / 10 WETH)": {
+      recipient: ADDRESSES.BActions,
       poolAddress: ADDRESSES.SmartTreasury,
       tokenAddress: ADDRESSES.SmartTreasuryToken,
       functionSigs: bactionsFunctionSigs,
@@ -197,7 +82,7 @@ function EncodeSelector() {
   };
 
   const [selectedContract, setSelectedContract] = useState(
-    contracts["PST (0x3c0b...e263)"]
+    contracts["Pickle Smart Treasury (90 PICKLE / 10 WETH)"]
   );
 
   return (
