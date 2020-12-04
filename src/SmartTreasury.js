@@ -37,7 +37,7 @@ function Encode({ crpAddress, poolAddress, targetAddress, proxyAddress, abi }) {
 
       <Card>
         <Card.Body>
-          <h4>Contract Interaction</h4>
+          <h4>Contract Interaction (Execute from Treasury Multisig)</h4>
 
           <Form>
             <Form.Group>
@@ -221,7 +221,7 @@ function EncodeSelector() {
     "Pickle Smart Treasury (90 PICKLE / 10 WETH)": {
       poolAddress: ADDRESSES.SmartTreasury,
       crpAddress: ADDRESSES.SmartTreasuryCRP,
-      proxyAddress: ADDRESSES.GovernanceProxy,
+      proxyAddress: ADDRESSES.TreasuryProxy,
       targetAddress: ADDRESSES.BActions,
       abi: bactionsAbi,
     },
