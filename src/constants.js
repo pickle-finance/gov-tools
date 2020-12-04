@@ -24,5 +24,6 @@ export const ADDRESSES = {
   SmartTreasury: "0xe5c700572799553f9d65cbe8dfeeb543be584431",
   SmartTreasuryToken: "0xe2ab9b005abe28cca6a93b46e957fbfbe0f19488", // Controller
   BActions: "0x2fcc6f96418764439f8dc26af559ed5cddaeefac",
-  GovernanceProxy: "0x23F0CCeeAbEab58c3B547973409F4C1bcC3f2a3D"
+  GovernanceProxy: "0x23F0CCeeAbEab58c3B547973409F4C1bcC3f2a3D",
+  TreasuryProxy: "0x5066e82C995BE4a03498D1E91F809Db907B1F54b",
 };
