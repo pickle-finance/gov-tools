@@ -220,7 +220,7 @@ function EncodeSelector() {
   const contracts = {
     "Pickle Smart Treasury (90 PICKLE / 10 WETH)": {
       poolAddress: ADDRESSES.SmartTreasury,
-      crpAddress: ADDRESSES.SmartTreasuryToken,
+      crpAddress: ADDRESSES.SmartTreasuryCRP,
       proxyAddress: ADDRESSES.GovernanceProxy,
       targetAddress: ADDRESSES.BActions,
       abi: bactionsAbi,
